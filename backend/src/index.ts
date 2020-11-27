@@ -10,4 +10,4 @@ app.use(cors())
 
 app.use(routes)
 
-app.listen(process.env.PORT, () => console.log(`Now Listening: I love you ${process.env.PORT}`)
+app.listen(process.env.PORT, () => console.log(`Now Listening: I love you ${process.env.PORT}`));

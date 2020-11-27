@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
@@ -19,16 +20,27 @@ router.post('/register', async (req, res) => {
       pass: body.pass,
     }
   }).catch((e) => {
-    return {
-      error: 'Unhandled Error',
-      detail: e.response.data
+    type errorResponse = {
+      errorCode: string;
+      meta: any;
     }
+    const errorMsg: errorResponse = {
+      errorCode: e.code,
+      meta: e.meta
+    }
+    return errorMsg
   })
 
-  if(!result.error) {
+  if(!result.errorCode) {
     res.status(200).json(result);
+  } else if(result.errorCode === 'P2002') {
+    res.status(400).json({
+      message: `${result.meta.target[0]} already exists!`
+    })
   } else {
-    res.status(500).json(result)
+    res.status(500).json({
+      message: 'Uncaught error.'
+    })
   }
 });
 router.post('/login', );
