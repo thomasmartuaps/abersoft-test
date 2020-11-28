@@ -44,8 +44,13 @@ const styles = StyleSheet.create({
 export default function Home({ navigation }: { navigation: any}) {
 
   const goToRegister = (event: GestureResponderEvent) => {
+    navigation.navigate("Login")
+  };
 
-  }
+  const goToLogin = (event: GestureResponderEvent) => {
+    navigation.navigate("Login")
+  };
+  
   return(
     <View style={styles.background}>
       <LinearGradient
@@ -62,6 +67,7 @@ export default function Home({ navigation }: { navigation: any}) {
               <Text style={styles.buttonText}>Register Account</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={(e) => goToLogin(e)}
               style={styles.buttonLandingPage}
             >
               <Text style={styles.buttonText}>Login</Text>
