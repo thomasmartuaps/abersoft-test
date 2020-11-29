@@ -17,9 +17,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    width: '100%',
+    width: 375,
     height: '100%',
     padding: 24,
+    paddingBottom: 0,
   },
   onboardBg: {
     position: 'absolute',
@@ -41,21 +42,34 @@ const styles = StyleSheet.create({
     marginTop: 22,
     marginBottom: 22,
   },
+  backButton: {
+    position: 'absolute',
+    left: 16,
+    top: 32,
+  },
   buttonTextLoginReg: {
     color: '#FFF',
     fontWeight: '500',
     fontSize: 16.2587,
-    fontFamily: 'Roboto, sans-serif', 
+  },
+  textInput: {
+    borderWidth: 0,
+    borderBottomWidth: 2,
+    borderBottomColor: '#3549FB',
+    width: 287,
+    paddingBottom: 8,
+    marginTop: 17,
+    marginBottom: 17,
   },
   drawer: {
-    position: 'absolute',
+    position: "absolute",
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
     bottom: 0,
     left: 0,
-    width: '100%',
+    width: 375,
     height: 400,
     backgroundColor: '#FFF',
     margin: 0,
@@ -77,7 +91,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: '500',
     fontSize: 16.2587,
-    fontFamily: 'Roboto, sans-serif', 
   }
 }) 
 

@@ -9,3 +9,5 @@ I use Prisma as the ORM for this backend application, which might not be familia
 6. Run the schema.sql script file in the prisma folder using either mysql shell or the workbench
 7. Run the command yarn prisma introspect, then yarn prisma generate (More info on this, look up the primsa tutorial.)
 8. You should be able to start the backend using the command yarn start
+
+On the frontend, if you receive network error while loggin in, you might need to edit the "baseUrl.ts" file in the root frontend folder with the correct url of your PC.
