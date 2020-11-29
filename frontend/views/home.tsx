@@ -1,53 +1,25 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Button, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF',
-    width: '100%',
-    height: '100%',
-    // padding: 24
-  },
-  gradientBg: {
-    position: 'absolute',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '100%',
-    padding: 24,
-  },
-  buttonLandingPage: {
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 287, 
-    height: 33,
-    borderRadius: 25.5,
-    marginTop: 22,
-    marginBottom: 22,
-  },
-  buttonText: {
-    color: '#000',
-    fontWeight: '500',
-    fontSize: 16.2587,
-    fontFamily: 'Roboto, sans-serif', 
-  }
-}) 
+import { useSelector } from 'react-redux';
+import styles from '../styles/index';
 
 export default function Home({ navigation }: { navigation: any}) {
+  const token = useSelector(state => state.token);
+
+  useEffect(() => {
+    if(token) {
+      navigation.navigate("Onboard")
+    }
+  }, [token])
 
   const goToRegister = (event: GestureResponderEvent) => {
-    navigation.navigate("Login")
+    event.preventDefault();
+    navigation.navigate("Register")
   };
 
   const goToLogin = (event: GestureResponderEvent) => {
+    event.preventDefault();
     navigation.navigate("Login")
   };
   

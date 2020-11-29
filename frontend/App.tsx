@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View } from 'react-native';
-import Home from './views/home'
+import Home from './views/home';
 import Login from './views/login';
+import Register from './views/register';
+import Onboard from './views/onboard';
 
 const Stack = createStackNavigator();
 
@@ -14,9 +16,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Onboard">
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Onboard" component={Onboard} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
 

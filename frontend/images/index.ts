@@ -1,0 +1,1 @@
+export const undraw = require('./undraw_data_processing_yrrv-1.png');

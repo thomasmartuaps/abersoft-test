@@ -1,64 +1,42 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Button, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 import Input from '@material-ui/core/Input';
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF',
-    width: '100%',
-    height: '100%',
-    // padding: 24
-  },
-  gradientBg: {
-    position: 'absolute',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '100%',
-    padding: 24,
-  },
-  buttonLandingPage: {
-    backgroundColor: '#3549FB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 287, 
-    height: 33,
-    borderRadius: 25.5,
-    marginTop: 22,
-    marginBottom: 22,
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: '500',
-    fontSize: 16.2587,
-    fontFamily: 'Roboto, sans-serif', 
-  },
-  drawer: {
-    position: 'absolute',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    height: 400,
-    backgroundColor: '#FFF',
-    margin: 0,
-    padding: 0,
-    borderTopLeftRadius: 51,
-    borderTopRightRadius: 51,
-  }
-}) 
+import axios from 'axios';
+import styles from '../styles/index';
+import { setUser } from '../store/actions';
 
 export default function Login({ navigation }: { navigation: any}) {
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleLoginEmail = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleLoginPass = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setPass(event.target.value);
+  };
+
+  const submitLogin = (event: GestureResponderEvent) => {
+    event.preventDefault();
+    axios({
+      method: 'POST',
+      url: 'http://localhost:3000/login',
+      data: {
+        email: email,
+        pass: pass,
+      }
+    }).then((res) => {
+      dispatch(setUser({ email: res.data.email, token: res.data.token }))
+      navigation.navigate("Onboard")
+    }).catch((e) => {
+      alert(e.result.data.message)
+    })
+  }
 
   return(
     <View style={styles.background}>
@@ -76,18 +54,22 @@ export default function Login({ navigation }: { navigation: any}) {
               width: 287,
               marginTop: 17,
               marginBottom: 17,
-              }} placeholder="Email"></Input>
+              }} 
+              placeholder="Email"
+              onChange={(e) => handleLoginEmail(e)}></Input>
             <Input style={{
               width: 287,
               marginTop: 17,
               marginBottom: 33,
               }} 
               type="password"
-              placeholder="Password"></Input>
+              placeholder="Password"
+              onChange={(e) => handleLoginPass(e)}></Input>
             <TouchableOpacity
-              style={styles.buttonLandingPage}
+              style={styles.buttonLoginRegister}
+              onPress={(e) => submitLogin(e)}
             >
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonTextLoginReg}>Login</Text>
             </TouchableOpacity>
           </View>
       </LinearGradient>
